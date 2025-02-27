@@ -1,22 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"log/slog"
 	"net/http"
+	"os"
+
+	"github.com/Jose-N/zen-zone/internal/http/indexhandler"
 )
 
-func helloHandler() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello World")
-	})
-}
-
 func main() {
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+
 	mux := http.NewServeMux()
 
-	// nux.HandleFunc("/", helloHandler)
-	mux.Handle("GET /", helloHandler())
-	slog.Info("")
+	mux.Handle("GET /", indexhandler.IndexHandler())
+
+	logger.Info("Starting server", "port", 8080)
 	http.ListenAndServe("localhost:8080", mux)
 }
