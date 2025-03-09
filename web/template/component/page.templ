@@ -1,7 +1,12 @@
 package component
 
 templ Page(){
-	@header()
-	{ children... }
-	@footer()
+	<!DOCTYPE html>
+	<html>
+		<body>
+			@header()
+				{ children... }
+			@footer()
+		</body>
+	</html>
 }
